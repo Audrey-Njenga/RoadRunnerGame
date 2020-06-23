@@ -4,10 +4,14 @@
 
 }
 
+#main{
+    background-color: rgb(206, 243, 252);
+}
+
 #heading {
     background-color: hsl(249, 68%, 49%);
     width : 80%;
-    margin-top: 0.8em;
+    /* margin-top: 0.8em; */
     margin-left: auto;
     margin-right: auto;
     padding: 0.5em;
@@ -48,7 +52,7 @@ div#content {
     padding: 1em;
     border: black solid ;
     margin-left: 25em;
-    margin-top: 2em;
+    margin-top: 3.6em;
     display: grid;
    grid-gap: 0.5em;
     width: max-content;
