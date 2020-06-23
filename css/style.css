@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+#heading {
+    background-color: hsl(249, 68%, 49%);
+    width : 80%;
+    margin-top: 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5em;
+    border-radius: 1.5em;
+    text-align: center;
+    color: white;
+}
+
+div#content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#start{
+    background-color: teal;
+    font-size: 1.5em;
+    padding: 0.5em 2em;
+    border-radius: 1em;
+    color: white;
+    margin-right: 0.2em;
+    margin-left: 35%;
+}
+
+#start:hover{
+    cursor: pointer;
+    background-color: tomato;
+}
+
+#score{
+    background-color: crimson;
+    font-size: 1.5em;
+    padding: 0.5em 2em;
+    border-radius: 1em;
+    color: white;
+}
+
+#gamebody{
+    padding: 1em;
+    border: black solid ;
+    margin-left: 25em;
+    margin-top: 2em;
+    display: grid;
+   grid-gap: 0.5em;
+    width: max-content;
+    height: max-content;
+    grid-template-columns: 100px 100px 100px 100px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+}
+
+div.blank{
+    width: 100px;
+    height: 100px;
+    background-color: greenyellow;
+}
