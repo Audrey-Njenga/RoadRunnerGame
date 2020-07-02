@@ -1,84 +1,11 @@
 * {
-    padding: 0;
     margin: 0;
-
+    padding: 0;
 }
 
-body {
-    font-family: 'H', 'Trebuchet MS', Helvetica;
-    background-image: url("../assets/images/logo.jpg");
-    object-fit: cover;
+#topbar{
     text-align: center;
-}
-
-#main {
-    margin: 0 auto;
-}
-
-#heading {
-    /*background-color: hsl(249, 68%, 49%);*/
-    margin: 20px auto;
-    width: 80%;
-    padding: 0.5em;
-    border-radius: 1.5em;
-    color: white;
-    border: 2px solid #fff;
-    box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.6), 0 8px 22px 0 rgba(255, 255, 255, 0.19);
+    color: darkblue ;
 
 }
 
-#content {
-    margin: 50px 0;
-}
-
-#start-btn {
-    padding: 20px 50px;
-    background-color: rgba(0, 0, 0, .5);
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 15px;
-    color: #fff;
-    font-size: 20px;
-    margin: 0 30px 0 auto;
-}
-
-#start-btn:hover {
-    background-color: rgba(0, 0, 0, 1);
-}
-
-#score-dash {
-    padding: 20px 50px;
-    background-color: rgba(255, 255, 255, 1);
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 15px;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 auto;
-}
-
-
-#grid {
-    padding: 2%;
-    border: 2px solid #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.6), 0 8px 22px 0 rgba(255, 255, 255, 0.19);
-    margin: 10px auto;
-    display: grid;
-    grid-gap: 0.5em;
-    width: max-content;
-    height: max-content;
-    grid-template-columns: 100px 100px 100px 100px;
-}
-
-img {
-    width: 100px;
-    height: 100px;
-}
-
-div.blank {
-    width: 100px;
-    height: 100px;
-    background-color: greenyellow;
-}

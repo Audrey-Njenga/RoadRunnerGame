@@ -4,37 +4,42 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='./assets/css/main.css') }}" />
     <title>Road Runner Game</title>
 </head>
+<style>
+    #main {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: repeat( {{ gameRow }} , 1fr);
+        grid-template-rows: repeat( {{ gameCol }} , 1fr);
+        width: 60%;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 5%;
+        grid-row-gap: 2em;
+
+    }
+
+    img {
+        width: 60%;
+
+    }
+</style>
 
 <body>
-    <div id="main">
-        <h1 id="heading">Road Runner</h1>
-        <div id="content">
-            <span id="start-btn" onclick="drawCanvas()">Start </span>
-            <span id="score-dash">Score: </span>
-        </div>
-        <div id="grid">
-            <img src="../static/assets/images/boulder.jpg">
-            <img src="../static/assets/images/pothole.jpg">
-            <div class="blank"></div>
-            <img src="../static/assets/images/goal.jpg">
-            <div class="blank"></div>
-            <div class="blank"></div>
-            <div class="blank"></div>
-            <img src="../static/assets/images/explosive.jpg">
-            <img src="../static/assets/images/gold.jpg">
-            <div class="blank"></div>
-            <img src="../static/assets/images/coyote.jpg">
-            <img src="../static/assets/images/tarred.jpg">
-            <div class="blank"></div>
-            <img src="../static/assets/images/start.jpg">
-            <div class="blank"></div>
-            <img src="../static/assets/images/tarred.jpg">
-
-            
-        </div>
+    <div id="topbar">
+        <h1>Road Runner Game</h1>
+        <p>Get to the finish point while maximizng your energy points</p>
+        <p>Score:</p>
     </div>
-    <script src="../static/script/gameStart.js"></script>
+    <div id="main">
+        {% for x in gameGrid[2:] %}
+        <p> {{ x }} </p>
+        {% endfor %}
+
+
+    </div>
+    <script src="{{ url_for('static', filename='./static/script/imageClass.js') }}"></script>
 </body>
