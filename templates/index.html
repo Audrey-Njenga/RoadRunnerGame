@@ -2,44 +2,65 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
     <title>Road Runner Game</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-columns: repeat( {{ m }} , 1fr);
+            grid-template-rows: repeat( {{ n }} , 1fr);
+            width: 70%;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 5%;
+            grid-row-gap: 2em;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+        }
+    </style>
 </head>
-<style>
-    #main {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: repeat( {{ gameRow }} , 1fr);
-        grid-template-rows: repeat( {{ gameCol }} , 1fr);
-        width: 60%;
-        align-items: center;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 5%;
-        grid-row-gap: 2em;
 
-    }
 
-    img {
-        width: 60%;
+<!--<body>-->
+<!--    <div id="topbar">-->
+<!--        <h1>Road Runner Game</h1>-->
+<!--        <p>Get to the finish point while maximizng your energy points</p>-->
+<!--        <p>Score:</p>-->
+<!--    </div>-->
+<!--    <div id="main">-->
+<!--        {% for x in gameGrid[2:] %}-->
+<!--        <p> {{ x }} </p>-->
+<!--        {% endfor %}-->
 
-    }
-</style>
 
+<!--    </div>-->
+<!--    <script src="{{ url_for('static', filename='script/imageClass.js') }}"></script>-->
+<!--</body>-->
+
+<!--new body system-->
 <body>
     <div id="topbar">
         <h1>Road Runner Game</h1>
         <p>Get to the finish point while maximizng your energy points</p>
         <p>Score:</p>
     </div>
-    <div id="main">
-        {% for x in gameGrid[2:] %}
-        <p> {{ x }} </p>
+    <div class="grid-container">
+        {% for i in range(n) %}
+            {% for j in range(m) %}
+                <div class="grid-item">{{ gameGrid[i][j] }}</div>
+            {% endfor %}
         {% endfor %}
-
-
     </div>
     <script src="{{ url_for('static', filename='script/imageClass.js') }}"></script>
 </body>

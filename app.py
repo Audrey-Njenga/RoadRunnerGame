@@ -1,24 +1,31 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    return render_template("index.html", gameGrid=grid, gameRow=gameRow, gameCol=gameCol)
+    return redirect(url_for("levels", level=1))
 
-def read_file(filename):
-    file = open(f"./static/assets/input_files/{filename}", "r")
-    file_input = file.readlines()
-    grid = []
-    for row in file_input:
-        for s in x:
-            if s == "\n" or s == " ":
-                continue
-            else:
-                grid.append(int(s))
-    gameRow = grid[0]
-    gameCol = grid[1]
+
+@app.route("/level/<int:level>/")
+def levels(level):
+    grid = read_file()
+    return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]))
+
+
+def read_file(filename="testinput.txt"):
+    with open(f"./static/assets/input_files/{filename}", "r") as f:
+        file_input = f.readlines()
+        grid = []
+        for row in file_input[1:]:
+            temp = []
+            # strip all white spaces and endline from row
+            line = row.strip()
+            for val in line:
+                temp.append(val)
+            grid.append(temp)
+        return grid
 
 
 if __name__ == "__main__":
