@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for
+from tilePicker import Tile
 
 app = Flask(__name__)
 

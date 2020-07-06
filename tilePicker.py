@@ -1,20 +1,20 @@
 def Tile(number):
     if number == 0:
-        tile = "./assets/images/blank.jpg"
+        tile = "{{ url_for('static', filename='assets/images/blank.jpg') }}"
     elif number == 1:
-        tile = "./assets/images/boulder.jpg"
+        tile = "{{ url_for('static', filename='assets/images/boulder.jpg') }}"
     elif number == 2:
-        tile = "./assets/images/pothole.jpg"
+        tile = "{{ url_for('static', filename='assets/images/pothole.jpg') }}"
     elif  number == 3:
-        tile = "./assets/images/explosive.jpg"
+        tile = "{{ url_for('static', filename='assets/images/explosive.jpg') }}"
     elif number == 4:
-        tile = "./assets/images/coyote.jpg"
+        tile = "{{ url_for('static', filename='assets/images/coyote.jpg') }}"
     elif number == 5:
-        tile = "./assets/images/tarred.jpg"
+        tile = "{{ url_for('static', filename='assets/images/tarred.jpg') }}"
     elif number == 6:
-        tile = "./assets/images/gold.jpg"
+        tile = "{{ url_for('static', filename='assets/images/gold.jpg') }}"
     elif number == 8:
-        tile = "./assets/images/start.jpg"
+        tile = "{{ url_for('static', filename='assets/images/dtart.jpg') }}"
     elif number == 9:
-        tile = "./assets/images/goal.jpg"
+        tile = "{{ url_for('static', filename='assets/images/goal.jpg') }}"
     return tile
