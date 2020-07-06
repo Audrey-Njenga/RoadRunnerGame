@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from tilePicker  import Tile
 
 app = Flask(__name__)
 
@@ -13,10 +14,13 @@ for x in file_input:
             grid.append(int(s))
 gameRow = grid[0]
 gameCol = grid[1]
+images = []
+for s in grid[2:]:
+    images.append(Tile(s))
 
 @app.route("/")
 def home():
-    return render_template("index.html", gameGrid=grid, gameRow=gameRow, gameCol=gameCol)
+    return render_template("index.html", images=images , gameRow=gameRow, gameCol=gameCol)
 
 
 if __name__ == "__main__":
