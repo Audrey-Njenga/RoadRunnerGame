@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
     <title>Road Runner Game</title>
     <style>
+        :root {
+          --grid-cols: 1;
+          --grid-rows: 1;
+        }
         .grid-container {
             display: grid;
-            grid-auto-flow: column;
-            grid-template-columns: repeat( {{ m }} , 1fr);
+            grid-template-columns: repeat({{ m }} , 1fr);
             grid-template-rows: repeat( {{ n }} , 1fr);
             width: 70%;
             align-items: center;
@@ -30,6 +33,7 @@
             line-height: 100px;
         }
     </style>
+    <script type="module" defer src="{{ url_for('static', filename='script/script.js') }}"></script>
 </head>
 
 
@@ -39,15 +43,14 @@
         <p>Get to the finish point while maximizng your energy points</p>
         <p>Score:</p>
     </div>
-    <div class="grid-container">
-        {% for j in range(m) %}
-            {% for i in range(n) %}
-                <div class="grid-item">
+    <div class="grid-container" id="grid">
+        {% for i in range(n) %}
+            {% for j in range(m) %}
+                <div class="grid-item" id = "grid-item-{{ i }}{{ j }}" >
                     <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img" width="100px"
                     height="auto">
                 </div>
             {% endfor %}
         {% endfor %}
     </div>
-    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
 </body>

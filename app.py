@@ -19,7 +19,6 @@ def read_file(filename="testinput.txt"):
     with open(f"./static/assets/input_files/{filename}", "r") as f:
         file_input = f.readlines()
         grid = []
-        grid_test= []
         for row in file_input[1:]:
             temp = []
             temp_test = []
