@@ -32,6 +32,17 @@
             height: 100px;
             line-height: 100px;
         }
+        .item-img {
+            width: 100px;
+            height: auto;
+        }
+        .deactivated {
+          pointer-events: none;
+          opacity: .3;
+        }
+        .selected {
+            border: 3px solid forestgreen;
+        }
     </style>
     <script type="module" defer src="{{ url_for('static', filename='script/script.js') }}"></script>
 </head>
@@ -43,13 +54,20 @@
         <p>Get to the finish point while maximizng your energy points</p>
         <p>Score:</p>
     </div>
-    <div class="grid-container" id="grid">
+    <div class="grid-container">
         {% for i in range(n) %}
             {% for j in range(m) %}
-                <div class="grid-item" id = "grid-item-{{ i }}{{ j }}" >
-                    <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img" width="100px"
-                    height="auto">
-                </div>
+                {% if gameGrid[i][j] == 'start.jpg' %}
+                    <div class="grid-item selected" data-row="{{ i }}" data-column="{{ j }}">
+                        <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img"
+                             class="item-img">
+                    </div>
+                {% else %}
+                    <div class="grid-item" data-row="{{ i }}" data-column="{{ j }}">
+                        <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img"
+                             class="item-img">
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endfor %}
     </div>
