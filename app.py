@@ -19,12 +19,15 @@ def read_file(filename="testinput.txt"):
     with open(f"./static/assets/input_files/{filename}", "r") as f:
         file_input = f.readlines()
         grid = []
+        grid_test= []
         for row in file_input[1:]:
             temp = []
+            temp_test = []
             # strip all white spaces and endline from row
             line = row.strip()
             for val in line:
-                temp.append(val)
+                # map each number to an image and store it in grid.
+                temp.append(Tile(val))
             grid.append(temp)
         return grid
 

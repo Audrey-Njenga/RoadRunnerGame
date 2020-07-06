@@ -17,7 +17,8 @@
             margin-left: auto;
             margin-right: auto;
             padding-top: 5%;
-            grid-row-gap: 2em;
+            grid-row-gap: 3px;
+            grid-column-gap: 3px;
         }
         .grid-item {
             background-color: rgba(255, 255, 255, 0.8);
@@ -32,23 +33,6 @@
 </head>
 
 
-<!--<body>-->
-<!--    <div id="topbar">-->
-<!--        <h1>Road Runner Game</h1>-->
-<!--        <p>Get to the finish point while maximizng your energy points</p>-->
-<!--        <p>Score:</p>-->
-<!--    </div>-->
-<!--    <div id="main">-->
-<!--        {% for x in gameGrid[2:] %}-->
-<!--        <p> {{ x }} </p>-->
-<!--        {% endfor %}-->
-
-
-<!--    </div>-->
-<!--    <script src="{{ url_for('static', filename='script/imageClass.js') }}"></script>-->
-<!--</body>-->
-
-<!--new body system-->
 <body>
     <div id="topbar">
         <h1>Road Runner Game</h1>
@@ -56,11 +40,14 @@
         <p>Score:</p>
     </div>
     <div class="grid-container">
-        {% for i in range(n) %}
-            {% for j in range(m) %}
-                <div class="grid-item">{{ gameGrid[i][j] }}</div>
+        {% for j in range(m) %}
+            {% for i in range(n) %}
+                <div class="grid-item">
+                    <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img" width="100px"
+                    height="auto">
+                </div>
             {% endfor %}
         {% endfor %}
     </div>
-    <script src="{{ url_for('static', filename='script/imageClass.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
 </body>
