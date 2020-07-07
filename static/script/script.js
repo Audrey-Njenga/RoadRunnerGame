@@ -48,10 +48,11 @@ let isInvalid = (item, points) => {
 }
 
 let update_score = (item, points) => {
-    let current_score = Number.parseInt(document.getElementById("score").innerHTML),
+    let score = document.getElementById("score"),
+        current_score = Number.parseInt(score.innerHTML),
         points_gained = Number.parseInt(points);
     if (points_gained){
-        document.getElementById("score").innerHTML = current_score + points_gained + "";
+        score.innerHTML = current_score + points_gained + "";
         return true;
     }
     return false;
