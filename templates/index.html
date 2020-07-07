@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
     <title>Road Runner Game</title>
     <style>
-        
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat( {{ m }}, 1fr);
@@ -38,6 +38,7 @@
 
         .deactivated {
             pointer-events: none;
+            border: 2px solid forestgreen;
             opacity: .3;
         }
 

@@ -19,7 +19,7 @@ def levels(level):
         "5": ["tarred.jpg", 1],
         "6": ["gold.jpg", 5],
         "8": ["start.jpg", "Start"],
-        "9": ["goal.jpg", 0]
+        "9": ["goal.jpg", "Goal"]
     }
     grid = read_file()
     return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles)

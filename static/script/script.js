@@ -37,22 +37,33 @@ function handleKey(e) {
     }
 }
 
-let moveTo = (target_item) => {
-    target_item.classList.add("Selected");
+let moveTo = (item) => {
+    item.classList.add("selected");
 }
 
-let moveFrom = (target_item) => {
-    target_item.classList.add("deactivated");
-    target_item.classList.remove("selected");
+let moveFrom = (item) => {
+    item.classList.replace("selected", "deactivated");
 }
+
+let isInvalid = (item) => {
+    let isDeactivated = item.classList.contains("deactivated"),
+        isUnpassable = item.getAttribute("data-points") === 'Unpassable';
+    return isDeactivated || isUnpassable;
+}
+ 
 
 let move = (start_item, row, col) => {
     let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
-    // Validate movement
     if (target_item) {
+        if (isInvalid(target_item)) {
+            alert("Invalid Move, you can't pass through the wall or any deactivated tile!");
+            return;
+        }
         moveTo(target_item);
         moveFrom(start_item);
         console.log("moved successfully");
+    } else {
+        console.log("Invalid move!")
     }
 }
 
