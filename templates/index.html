@@ -80,54 +80,24 @@
             <h3>Score: <span id="score">0</span></h3>
         </div>
         <div id="key">
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/start.jpg') }}" alt="start">
-                <p>Start</p>
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/goal.jpg') }}" alt="goal">
-                <p>Goal</p>
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/blank.jpg') }}" alt="blank space">
-                <p>-1 </p>                
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/boulder.jpg') }}" alt="wall">  
-                <p>Unpassable</p>              
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/pothole.jpg') }}" alt="pothole">
-                <p>-2 </p>                
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/explosive.jpg') }}" alt="explosive"> 
-                <p>-4 </p>
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/tarred.jpg') }}" alt="tarred road">
-                <p>+1</p>                
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/coyote.jpg') }}" alt="coyote"> 
-                <p>-8</p>               
-            </div>
-            <div>
-                <img class="key-item" src="{{ url_for('static', filename='assets/images/gold.jpg') }}" alt="gold"> 
-                <p>+5</p>               
-            </div>
+            {% for tile in tiles.values() %}
+                <div>
+                    <img class="key-item" src="{{ url_for('static', filename='assets/images/'+tile[0]) }}" alt="start">
+                    <p>{{ tile[1] }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="grid-container">
         {% for i in range(n) %}
         {% for j in range(m) %}
-        {% if gameGrid[i][j] == 'start.jpg' %}
-        <div class="grid-item selected" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ gameGrid[i][j][1] }}">
-            <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j][0]) }}" alt="img" class="item-img">
+        {% if gameGrid[i][j] == '8' %}
+        <div class="grid-item selected" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ tiles['8'][1] }}">
+            <img src="{{ url_for('static', filename='assets/images/'+tiles['8'][0]) }}" alt="img" class="item-img">
         </div>
         {% else %}
-        <div class="grid-item" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ gameGrid[i][j][1] }}">
-            <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j][0]) }}" alt="img" class="item-img">
+        <div class="grid-item" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ tiles[gameGrid[i][j]][1] }}">
+            <img src="{{ url_for('static', filename='assets/images/'+tiles[gameGrid[i][j]][0]) }}" alt="img" class="item-img">
         </div>
         {% endif %}
         {% endfor %}
