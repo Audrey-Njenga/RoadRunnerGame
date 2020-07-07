@@ -1,7 +1,3 @@
-const game = {
-    score: document.getElementById("score")
-};
-
 const keys = {
     left: 37,
     up: 38,
@@ -45,22 +41,41 @@ let moveFrom = (item) => {
     item.classList.replace("selected", "deactivated");
 }
 
-let isInvalid = (item) => {
+let isInvalid = (item, points) => {
     let isDeactivated = item.classList.contains("deactivated"),
-        isUnpassable = item.getAttribute("data-points") === 'Unpassable';
+        isUnpassable = points === 'Unpassable';
     return isDeactivated || isUnpassable;
 }
- 
+
+let update_score = (item, points) => {
+    let current_score = Number.parseInt(document.getElementById("score").innerHTML),
+        points_gained = Number.parseInt(points);
+    if (points_gained){
+        document.getElementById("score").innerHTML = current_score + points_gained + "";
+        return true;
+    }
+    return false;
+}
 
 let move = (start_item, row, col) => {
     let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
     if (target_item) {
-        if (isInvalid(target_item)) {
+        // get data-points of the item
+        let points = target_item.getAttribute("data-points");
+        // validate movement
+        if (isInvalid(target_item, points)) {
             alert("Invalid Move, you can't pass through the wall or any deactivated tile!");
             return;
         }
-        moveTo(target_item);
+        // calculate score
+        let isScoreUpdate = update_score(target_item, points);
+        if (!isScoreUpdate){
+            alert("Unvalid Move");
+            return;
+        }
+        // move user to target
         moveFrom(start_item);
+        moveTo(target_item);
         console.log("moved successfully");
     } else {
         console.log("Invalid move!")
