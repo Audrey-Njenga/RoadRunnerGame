@@ -2,27 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
     <title>Road Runner Game</title>
     <style>
-        :root {
-          --grid-cols: 1;
-          --grid-rows: 1;
-        }
+        
         .grid-container {
             display: grid;
-            grid-template-columns: repeat({{ m }} , 1fr);
-            grid-template-rows: repeat( {{ n }} , 1fr);
+            grid-template-columns: repeat( {{ m }}, 1fr);
+            grid-template-rows: repeat( {{ n }}, 1fr);
             width: 70%;
             align-items: center;
             margin-left: auto;
             margin-right: auto;
-            padding-top: 5%;
+            padding-top: 3%;
             grid-row-gap: 3px;
             grid-column-gap: 3px;
         }
+
         .grid-item {
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(0, 0, 0, 0.8);
@@ -32,16 +30,43 @@
             height: 100px;
             line-height: 100px;
         }
+
         .item-img {
             width: 100px;
             height: auto;
         }
+
         .deactivated {
-          pointer-events: none;
-          opacity: .3;
+            pointer-events: none;
+            opacity: .3;
         }
+
         .selected {
             border: 3px solid forestgreen;
+        }
+
+        #topbar {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-columns: 3fr 1fr;
+        }
+
+        #key {
+            border: solid black;
+            width: 40%;
+            text-align: center;
+            display: grid;
+            grid-auto-flow: column;
+            font-size: 10px;
+            grid-gap: 1.5em;
+            font-weight: 600;
+            border: black;
+        }
+
+        .key-item {
+            width: 30px;
+            border: solid black 1px;
+
         }
     </style>
     <script type="module" defer src="{{ url_for('static', filename='script/script.js') }}"></script>
@@ -49,26 +74,63 @@
 
 
 <body>
+    <h1>Road Runner Game</h1>
     <div id="topbar">
-        <h1>Road Runner Game</h1>
-        <p>Get to the finish point while maximizng your energy points</p>
-        <p>Score:</p>
+        <div id="header">
+            <h3>Score: <span id="score">0</span></h3>
+        </div>
+        <div id="key">
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/start.jpg') }}" alt="start">
+                <p>Start</p>
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/goal.jpg') }}" alt="goal">
+                <p>Goal</p>
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/blank.jpg') }}" alt="blank space">
+                <p>-1 </p>                
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/boulder.jpg') }}" alt="wall">  
+                <p>Unpassable</p>              
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/pothole.jpg') }}" alt="pothole">
+                <p>-2 </p>                
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/explosive.jpg') }}" alt="explosive"> 
+                <p>-4 </p>
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/tarred.jpg') }}" alt="tarred road">
+                <p>+1</p>                
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/coyote.jpg') }}" alt="coyote"> 
+                <p>-8</p>               
+            </div>
+            <div>
+                <img class="key-item" src="{{ url_for('static', filename='assets/images/gold.jpg') }}" alt="gold"> 
+                <p>+5</p>               
+            </div>
+        </div>
     </div>
     <div class="grid-container">
         {% for i in range(n) %}
-            {% for j in range(m) %}
-                {% if gameGrid[i][j] == 'start.jpg' %}
-                    <div class="grid-item selected" data-row="{{ i }}" data-column="{{ j }}">
-                        <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img"
-                             class="item-img">
-                    </div>
-                {% else %}
-                    <div class="grid-item" data-row="{{ i }}" data-column="{{ j }}">
-                        <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j]) }}" alt="img"
-                             class="item-img">
-                    </div>
-                {% endif %}
-            {% endfor %}
+        {% for j in range(m) %}
+        {% if gameGrid[i][j] == 'start.jpg' %}
+        <div class="grid-item selected" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ gameGrid[i][j][1] }}">
+            <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j][0]) }}" alt="img" class="item-img">
+        </div>
+        {% else %}
+        <div class="grid-item" data-row="{{ i }}" data-column="{{ j }}" data-points="{{ gameGrid[i][j][1] }}">
+            <img src="{{ url_for('static', filename='assets/images/'+gameGrid[i][j][0]) }}" alt="img" class="item-img">
+        </div>
+        {% endif %}
+        {% endfor %}
         {% endfor %}
     </div>
 </body>
