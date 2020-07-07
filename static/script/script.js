@@ -37,21 +37,21 @@ function handleKey(e) {
     }
 }
 
-let addClass = (target_item, clsName) => {
-    target_item.classList.add(clsName);
+let moveTo = (target_item) => {
+    target_item.classList.add("Selected");
 }
 
-let removeClass = (target_item, clsName) => {
-    target_item.classList.add(clsName);
+let moveFrom = (target_item) => {
+    target_item.classList.add("deactivated");
+    target_item.classList.remove("selected");
 }
 
 let move = (start_item, row, col) => {
     let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
     // Validate movement
     if (target_item) {
-        addClass(target_item, "Selected")
-        removeClass(start_item, "selected");
-        addClass(start_item, "deactivated");
+        moveTo(target_item);
+        moveFrom(start_item);
         console.log("moved successfully");
     }
 }
