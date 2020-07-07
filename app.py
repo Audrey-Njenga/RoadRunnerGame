@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, url_for
-from tilePicker import Tile
 
 app = Flask(__name__)
 
@@ -11,8 +10,19 @@ def home():
 
 @app.route("/level/<int:level>/")
 def levels(level):
+    tiles = {
+        "0": ["blank.jpg", -1],
+        "1": ["boulder.jpg", "Unpassable"],
+        "2": ["pothole.jpg", -2],
+        "3": ["explosive.jpg", -4],
+        "4": ["coyote.jpg", -8],
+        "5": ["tarred.jpg", 1],
+        "6": ["gold.jpg", 5],
+        "8": ["start.jpg", "Start"],
+        "9": ["goal.jpg", "Goal"]
+    }
     grid = read_file()
-    return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]))
+    return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles)
 
 
 def read_file(filename="testinput.txt"):
@@ -21,12 +31,10 @@ def read_file(filename="testinput.txt"):
         grid = []
         for row in file_input[1:]:
             temp = []
-            # strip all white spaces and endline from row
+            # strip all white spaces and end line char
             line = row.strip()
             for val in line:
-                # map each number to an image and store it in grid.
-                tile, points = Tile(val)
-                temp.append([tile, points])
+                temp.append(val)
             grid.append(temp)
         return grid
 

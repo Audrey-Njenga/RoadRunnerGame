@@ -13,36 +13,75 @@ function handleKey(e) {
     switch (e.keyCode) {
         case keys.left:
             col = Number.parseInt(col) - 1;
-            alert('Left key is pressed');
             arrow = true;
             break;
         case keys.up:
             row = Number.parseInt(row) - 1;
-            alert('Up  key is pressed');
             arrow = true;
             break;
         case keys.right:
             col = Number.parseInt(col) + 1;
-            alert('Right key is pressed');
             arrow = true;
             break;
         case keys.down:
             row = Number.parseInt(row) + 1;
-            alert('Down key is pressed');
             arrow = true;
             break;
     }
     if (arrow) {
-        let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
-        if (target_item) {
-            target_item.classList.add("selected");
-            let target_img = target_item.querySelector('img');
-            target_img.src = '/static/assets/images/start.jpg';
-            start_item.classList.remove("selected");
-            start_item.classList.add("deactivated");
-            console.log("moved successfully");
-        }
+        return move(start_item, row, col);
     }
 }
+
+let moveTo = (item) => {
+    item.classList.add("selected");
+}
+
+let moveFrom = (item) => {
+    item.classList.replace("selected", "deactivated");
+}
+
+let isInvalid = (item, points) => {
+    let isDeactivated = item.classList.contains("deactivated"),
+        isUnpassable = points === 'Unpassable';
+    return isDeactivated || isUnpassable;
+}
+
+let update_score = (item, points) => {
+    let score = document.getElementById("score"),
+        current_score = Number.parseInt(score.innerHTML),
+        points_gained = Number.parseInt(points);
+    if (points_gained){
+        score.innerHTML = current_score + points_gained + "";
+        return true;
+    }
+    return false;
+}
+
+let move = (start_item, row, col) => {
+    let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
+    if (target_item) {
+        // get data-points of the item
+        let points = target_item.getAttribute("data-points");
+        // validate movement
+        if (isInvalid(target_item, points)) {
+            alert("Invalid Move, you can't pass through the wall or any deactivated tile!");
+            return;
+        }
+        // calculate score
+        let isScoreUpdate = update_score(target_item, points);
+        if (!isScoreUpdate){
+            alert("Unvalid Move");
+            return;
+        }
+        // move user to target
+        moveFrom(start_item);
+        moveTo(target_item);
+        console.log("moved successfully");
+    } else {
+        console.log("Invalid move!")
+    }
+}
+
 
 window.addEventListener("keydown", handleKey);
