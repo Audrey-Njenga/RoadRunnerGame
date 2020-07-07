@@ -21,11 +21,11 @@ def read_file(filename="testinput.txt"):
         grid = []
         for row in file_input[1:]:
             temp = []
-            # strip all white spaces and endline from row
+            # strip all white spaces and end line char
             line = row.strip()
             for val in line:
-                # map each number to an image and store it in grid.
-                tile, points = Tile(val)
+                # map each number to an image, point and store them in grid.
+                tile, points = Tile(int(val))
                 temp.append([tile, points])
             grid.append(temp)
         return grid

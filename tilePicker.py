@@ -41,32 +41,7 @@
 #         return goal
 
 def Tile(number):
-    if number == "0":
-        tile = "blank.jpg"
-        points = -1
-    elif number == "1":
-        tile = "boulder.jpg"
-        points = 0
-    elif number == "2":
-        tile = "pothole.jpg"
-        points = -2
-    elif  number == "3":
-        tile = "explosive.jpg"
-        points = -4
-    elif number == "4":
-        tile = "coyote.jpg"
-        points = -8
-    elif number == "5":
-        tile = "tarred.jpg"
-        points = 1
-    elif number == "6":
-        tile = "gold.jpg"
-        points = 5
-    elif number == "8":
-        tile = "start.jpg"
-        points = 0
-    elif number == "9":
-        tile = "goal.jpg"
-        points = 0
-    return tile, points
-    
+    tiles = [["blank.jpg", -1], ["boulder.jpg", 0], ["pothole.jpg", -2], ["explosive.jpg", -4], ["coyote.jpg", -8],
+             ["tarred.jpg", 1], ["gold.jpg", 5], [None, None], ["start.jpg", 0], ["goal.jpg", 0]]
+    return tiles[number]
+
