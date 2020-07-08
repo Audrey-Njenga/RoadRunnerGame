@@ -27,23 +27,24 @@
             padding: 10px;
             font-size: 30px;
             text-align: center;
-            height: 100px;
-            line-height: 100px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 0.1em;
         }
 
         .item-img {
-            width: 100px;
+            width: 70px;
             height: auto;
         }
 
         .deactivated {
             pointer-events: none;
-            border: 2px solid forestgreen;
+            border: 2px solid #f46036ff;
             opacity: .3;
         }
 
         .selected {
-            border: 3px solid forestgreen;
+            border: 4px solid #f46036ff;
         }
 
         #topbar {
@@ -68,6 +69,12 @@
             width: 30px;
             border: solid black 1px;
 
+        }
+
+        body{
+            background-image: url("{{ url_for('static', filename='assets/images/cool.png') }}");
+            color: white;
+            padding: 1em;
         }
     </style>
     <script type="module" defer src="{{ url_for('static', filename='script/script.js') }}"></script>
