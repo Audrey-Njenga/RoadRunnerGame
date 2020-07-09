@@ -47,39 +47,45 @@ let isInvalid = (item, points) => {
     return isDeactivated || isUnpassable;
 }
 
-let update_score = (item, points) => {
-    let score = document.getElementById("score"),
-        current_score = Number.parseInt(score.innerHTML),
+let update_score = (item, points, score) => {
+    let current_score = Number.parseInt(score.innerHTML),
         points_gained = Number.parseInt(points);
-    if (points_gained){
+    if (points_gained) {
         score.innerHTML = current_score + points_gained + "";
         return true;
     }
     return false;
 }
 
+let next_level = (score) => {
+    alert(`Congratulations! Final score = ${score.innerHTML} `);
+}
+
 let move = (start_item, row, col) => {
     let target_item = document.querySelector(`.grid-item[data-row='${row}'][data-column='${col}']`);
     if (target_item) {
         // get data-points of the item
-        let points = target_item.getAttribute("data-points");
+        let points = target_item.getAttribute("data-points"),
+            score = document.getElementById("score");
+
         // validate movement
         if (isInvalid(target_item, points)) {
             alert("Invalid Move, you can't pass through the wall or any deactivated tile!");
             return;
         }
-        // calculate score
-        let isScoreUpdate = update_score(target_item, points);
-        if (!isScoreUpdate){
-            alert("Unvalid Move");
-            return;
-        }
-        // move user to target
+
+        // move to target
         moveFrom(start_item);
         moveTo(target_item);
+
+        // calculate score
+        if (points === "Goal") {
+            next_level(score);
+        } else if (!update_score(target_item, points, score)) {
+            alert("Invalid Move");
+            return;
+        }
         console.log("moved successfully");
-    } else {
-        console.log("Invalid move!")
     }
 }
 
