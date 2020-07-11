@@ -104,18 +104,23 @@ function handleKey(e) {
 // detect arrow key click to move player
 window.addEventListener("keydown", handleKey);
 
-// let next_level = () => {
-//     let current_level = get_level();
-//
-//     fetch ('/level', {
-//         method: "POST",
-//         body: JSON.stringify({
-//             current_level: current_level
-//         })
-//         headers
-//     })
-//
-// }
+let next_level = () => {
+    let current_level = get_level();
+
+    fetch ('/level', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            current_level: current_level
+        })
+    })
+    .catch((e) => {
+        console.log(e);
+    })
+
+}
 
 let reach_goal = () => {
     let [current_element] = selected_item_info(),
