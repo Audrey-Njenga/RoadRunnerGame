@@ -1,15 +1,16 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, abort, request
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    return redirect(url_for("levels", level=1))
+    return redirect(url_for("levels"))
 
 
 @app.route("/level/<int:level>/")
-def levels(level):
+def levels(level=1):
+    levels = ["testinput.txt", "test_input_10_15_coyote_wall_da.txt", "test_input_10_15_golden_d.txt"]
     tiles = {
         "0": ["blank.jpg", -1],
         "1": ["boulder.jpg", "Unpassable"],
@@ -21,8 +22,22 @@ def levels(level):
         "8": ["start.jpg", "Start"],
         "9": ["goal.jpg", "Goal"]
     }
-    grid = read_file()
-    return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles)
+    if level >= len(levels) or level < 1:
+        abort(404)
+    grid = read_file(levels[level - 1])
+    return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles, level=level)
+
+
+@app.route("/level_up", methods=['POST'])
+def level_up():
+    current_level = request.form.get('current_level')
+    return redirect(url_for("levels", level=int(current_level) + 1))
+
+
+@app.route("/level_down", methods=['POST'])
+def level_down():
+    current_level = request.form.get('current_level')
+    return redirect(url_for("levels", level=int(current_level) - 1))
 
 
 def read_file(filename="testinput.txt"):
