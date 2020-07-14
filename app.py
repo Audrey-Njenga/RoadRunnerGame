@@ -22,7 +22,7 @@ def levels(level=1):
         "8": ["start.jpg", "Start"],
         "9": ["goal.jpg", "Goal"]
     }
-    if level >= len(levels):
+    if level >= len(levels) or level < 1:
         abort(404)
     grid = read_file(levels[level - 1])
     return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles, level=level)
@@ -31,8 +31,13 @@ def levels(level=1):
 @app.route("/level_up", methods=['POST'])
 def level_up():
     current_level = request.form.get('current_level')
-    print(current_level)
-    return redirect(url_for("levels", level=int(current_level)+1))
+    return redirect(url_for("levels", level=int(current_level) + 1))
+
+
+@app.route("/level_down", methods=['POST'])
+def level_down():
+    current_level = request.form.get('current_level')
+    return redirect(url_for("levels", level=int(current_level) - 1))
 
 
 def read_file(filename="testinput.txt"):

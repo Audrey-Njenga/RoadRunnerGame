@@ -89,9 +89,14 @@
         <div class="level-management">
             <form method="POST" action="/level_up">
                 <input value="{{ level }}" name="current_level" hidden>
-                <button type="submit" class="btn level-up">Next Level</button>
+                <button type="submit" class="btn level-up">Level up</button>
             </form>
             <h3 class="current_level">Level: <span>{{ level }}</span></h3>
+            <!-- TODO: add condition if level < 1, make hidden-->
+            <form method="POST" action="/level_down">
+                <input value="{{ level }}" name="current_level" hidden>
+                <button type="submit" class="btn level-down">Level down</button>
+            </form>
         </div>
         <div id="key">
             {% for tile in tiles.values() %}
