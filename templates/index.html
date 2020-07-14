@@ -85,7 +85,13 @@
     <div id="topbar">
         <div id="header">
             <h3>Score: <span id="score">0</span></h3>
-            <h3>Level: <span id="level">{{ level }}</span></h3>
+        </div>
+        <div class="level-management">
+            <form method="POST" action="/level_up">
+                <input value="{{ level }}" name="current_level" hidden>
+                <button type="submit" class="btn level-up">Next Level</button>
+            </form>
+            <h3 class="current_level">Level: <span>{{ level }}</span></h3>
         </div>
         <div id="key">
             {% for tile in tiles.values() %}

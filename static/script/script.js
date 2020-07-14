@@ -13,15 +13,16 @@ let selected_item_info = () => {
 }
 
 let get_points = (target_item) => {
-    return target_item.getAttribute("data-points")
+    return target_item.getAttribute("data-points");
 }
 
 let get_score = () => {
-    return document.getElementById("score")
+    let score = document.getElementById("score").textContent;
+    return +score;
 }
 
-let get_level = () => {
-    return document.getElementById("level")
+let get_current_level = () => {
+    return document.querySelector("h3.current_level > span").textContent;
 }
 
 let moveTo = (item) => {
@@ -40,11 +41,10 @@ let isValid = (item, points) => {
 
 
 let update_score = (item, points) => {
-    let score = get_score(),
-        current_score = Number.parseInt(score.innerHTML),
+    let curr_score = get_score(),
         points_gained = Number.parseInt(points);
     if (!points_gained) points_gained = 0;
-    score.textContent = current_score + points_gained + "";
+    score.textContent = curr_score + points_gained + "";
     return score.textContent;
 }
 
@@ -104,22 +104,8 @@ function handleKey(e) {
 // detect arrow key click to move player
 window.addEventListener("keydown", handleKey);
 
-let next_level = () => {
-    let current_level = get_level();
-
-    fetch ('/level', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            current_level: current_level
-        })
-    })
-    .catch((e) => {
-        console.log(e);
-    })
-
+let level_up = () => {
+    document.querySelector("button.level-up").click();
 }
 
 let reach_goal = () => {
@@ -128,11 +114,10 @@ let reach_goal = () => {
         score = get_score();
 
     if (points === "Goal"){
-        alert(`Congratulations! Final Score = ${score.textContent}`);
+        alert(`Congratulations! Final Score = ${score}`);
+        // upgrade the player to the next level
+        return level_up()
     }
-
-    // upgrade the player to the next level
-    return next_level()
 }
 
 function handleKeyUp(e) {

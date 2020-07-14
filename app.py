@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return redirect(url_for("levels", level=1))
+    return redirect(url_for("levels"))
 
 
 @app.route("/level/<int:level>/")
-def levels(level):
+def levels(level=1):
     levels = ["testinput.txt", "test_input_10_15_coyote_wall_da.txt", "test_input_10_15_golden_d.txt"]
     tiles = {
         "0": ["blank.jpg", -1],
@@ -28,10 +28,11 @@ def levels(level):
     return render_template("index.html", gameGrid=grid, n=len(grid), m=len(grid[0]), tiles=tiles, level=level)
 
 
-@app.route("/level", methods=['POST'])
-def level_submission():
-    current_level = request.get_json()['current_level']
-    return redirect(url_for("levels", level=current_level + 1))
+@app.route("/level_up", methods=['POST'])
+def level_up():
+    current_level = request.form.get('current_level')
+    print(current_level)
+    return redirect(url_for("levels", level=int(current_level)+1))
 
 
 def read_file(filename="testinput.txt"):
