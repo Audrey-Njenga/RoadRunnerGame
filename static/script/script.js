@@ -105,10 +105,13 @@ function handleKey(e) {
 window.addEventListener("keydown", handleKey);
 
 let level_up = () => {
-    let level = get_current_level();
-    navigator.sendBeacon("/levels", JSON.stringify({
-        'current_level': level
-    }))
+    let curr_level = +document.querySelector("button.selected_level > input").value,
+        next_level_btn = document.querySelector(`button[data-id='${curr_level + 1}']`);
+    if (next_level_btn) {
+        next_level_btn.click();
+    } else {
+        document.querySelector(`button[data-id='1']`).click();
+    }
 }
 
 let reach_goal = () => {
@@ -116,7 +119,7 @@ let reach_goal = () => {
         points = get_points(current_element),
         score = get_score();
 
-    if (points === "Goal"){
+    if (points === "Goal") {
         alert(`Congratulations! Final Score = ${score}`);
         // upgrade the player to the next level
         return level_up()
@@ -125,7 +128,7 @@ let reach_goal = () => {
 
 function handleKeyUp(e) {
     let keyCode = e.keyCode
-    if (keyCode === keys.left || keyCode === keys.up || keyCode === keys.right || keyCode === keys.down){
+    if (keyCode === keys.left || keyCode === keys.up || keyCode === keys.right || keyCode === keys.down) {
         // detect current element, if 'Goal' advance player to the next level.
         return reach_goal();
     }

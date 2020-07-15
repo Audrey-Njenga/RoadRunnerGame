@@ -104,7 +104,8 @@
         <div class="level-management">
             {% for level in range(1, tot_levels+1) %}
                 <form method="POST" action="/levels">
-                    <button type="submit" class="btn {% if level == curr_level %}selected_level{% endif %}">
+                    <button type="submit" class="level-btn {% if level == curr_level %}selected_level{% endif %}"
+                            data-id="{{ level }}">
                         <input value="{{ level }}" name="current_level" hidden>
                         {{ level }}
                     </button>
