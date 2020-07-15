@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />-->
     <title>Road Runner Game</title>
     <style>
 
@@ -75,6 +75,21 @@
             color: white;
             padding: 1em;
         }
+
+        form{
+            display: inline-block;
+        }
+
+        .btn{
+            width: 30px;
+            height: auto;
+        }
+
+        .selected_level {
+            background-color: green;
+            color:white;
+        }
+
     </style>
     <script type="module" defer src="{{ url_for('static', filename='script/script.js') }}"></script>
 </head>
@@ -87,20 +102,14 @@
             <h3>Score: <span id="score">0</span></h3>
         </div>
         <div class="level-management">
-            {% if level < tot_levels %}
-            <form method="POST" action="/level_up">
-                <input value="{{ level }}" name="current_level" hidden>
-                <button type="submit" class="btn level-up">Level up</button>
-            </form>
-            {% endif %}
-            <h3 class="current_level">Level: <span>{{ level }}</span></h3>
-            <!-- TODO: add condition if level < 1, make hidden-->
-            {% if level > 1 %}
-            <form method="POST" action="/level_down">
-                <input value="{{ level }}" name="current_level" hidden>
-                <button type="submit" class="btn level-down">Level down</button>
-            </form>
-            {% endif %}
+            {% for level in range(1, tot_levels+1) %}
+                <form method="POST" action="/levels">
+                    <button type="submit" class="btn {% if level == curr_level %}selected_level{% endif %}">
+                        <input value="{{ level }}" name="current_level" hidden>
+                        {{ level }}
+                    </button>
+                </form>
+            {% endfor %}
         </div>
         <div id="key">
             {% for tile in tiles.values() %}

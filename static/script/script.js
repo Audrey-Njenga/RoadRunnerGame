@@ -105,7 +105,10 @@ function handleKey(e) {
 window.addEventListener("keydown", handleKey);
 
 let level_up = () => {
-    document.querySelector("button.level-up").click();
+    let level = get_current_level();
+    navigator.sendBeacon("/levels", JSON.stringify({
+        'current_level': level
+    }))
 }
 
 let reach_goal = () => {
