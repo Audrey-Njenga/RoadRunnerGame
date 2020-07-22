@@ -1,3 +1,14 @@
+// TODO:
+// 1- Better scroing system (Aud)
+// 2- Stop moving once you reach the goal (Ahm)
+// 3- POST request need to be GET (Ahm)
+// 4- Intro and congrats page (Aud)
+// 5- Once done with all levels, then congrats ()
+// 6- Game Over syst once the user can't move to any dire (Au + Ah)
+// 
+
+
+
 const keys = {
     left: 37,
     up: 38,
