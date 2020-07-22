@@ -29,10 +29,12 @@ def render_level(curr_level=1):
                            tot_levels=len(levels))
 
 
-@app.route("/levels", methods=['POST'])
-def render_level_submission():
-    current_level = request.form.get('current_level')
-    return redirect(url_for("render_level", curr_level=int(current_level)))
+@app.route("/levels", methods=["POST"])
+def change_level():
+    new_level = request.form.get('current_level')
+    if not new_level:
+        abort(404)
+    return redirect(url_for("render_level", curr_level=int(new_level)))
 
 
 def read_file(filename="testinput.txt"):
