@@ -7,7 +7,23 @@
 // 6- Game Over syst once the user can't move to any dire (Au + Ah)
 // 
 
+let app = {
+    level_done: false
+}
 
+
+let isLevelDone= () => {
+    return app.level_done;
+}
+
+let reachedGoal = () => {
+    app.level_done = true;
+}
+
+
+// ------------------------------------------------------------------------------------------------------
+// Move player on keydown
+// ------------------------------------------------------------------------------------------------------
 
 const keys = {
     left: 37,
@@ -33,7 +49,7 @@ let get_score = () => {
 }
 
 let get_current_level = () => {
-    return document.querySelector("h3.current_level > span").textContent;
+    return +document.querySelector("button.selected_level > input").value;
 }
 
 let moveTo = (item) => {
@@ -107,7 +123,8 @@ function handleKey(e) {
             arrow = true;
             break;
     }
-    if (arrow) {
+    // move on key arrow and not level done
+    if (arrow && !(isLevelDone())) {
         return move(start_item, row, col);
     }
 }
@@ -115,8 +132,13 @@ function handleKey(e) {
 // detect arrow key click to move player
 window.addEventListener("keydown", handleKey);
 
+
+// ------------------------------------------------------------------------------------------------------
+//  Detect goal reached and level up
+// ------------------------------------------------------------------------------------------------------
+
 let level_up = () => {
-    let curr_level = +document.querySelector("button.selected_level > input").value,
+    let curr_level = get_current_level(),
         next_level_btn = document.querySelector(`button[data-id='${curr_level + 1}']`);
     if (next_level_btn) {
         next_level_btn.click();
@@ -131,6 +153,7 @@ let reach_goal = () => {
         score = get_score();
 
     if (points === "Goal") {
+        reach_goal();
         alert(`Congratulations! Final Score = ${score}`);
         // upgrade the player to the next level
         return level_up()
